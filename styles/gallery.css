@@ -33,10 +33,19 @@ section.gallery {
         border-radius: 2.5rem;
         overflow: hidden;
         line-height: 0;
+        /*Normalmente precisamos SEMPRE do tempo pra animação executar e fazer sentido, no entanto em alguns navegadores a opção de timeline já está funcionando - neste caso abaixo, quando entrar na view, ele começa a 100px do fundo e termina a 350px do fundo (o tempo agora não existe, o paramêtro de inicio e fim é a timeline - scrolldown)*/
+        animation: image-appear linear backwards;
+        animation-timeline: view();
+        animation-range: 100px 350px;
+
+        &[data-delay]{
+            animation-range: 150px 350px;
+        }
 
         &>img {
             height: 25rem;
             object-fit: cover;
+            transition: scale 500ms;
         }
 
         &:hover {
@@ -82,6 +91,9 @@ section.gallery {
 
         padding: 1.5rem 2rem;
 
+        transform: translateY(100%);
+        transition: transform 500ms;
+
         background: linear-gradient(to top,
                 rgb(0 0 0 / .64),
                 rgb(0 0 0 / 0));
@@ -92,5 +104,12 @@ section.gallery {
             object-fit: cover;
             border-radius: 50%;
         }
+    }
+}
+
+@keyframes image-appear{
+    from{
+        opacity: 0;
+        transform: translateY(100%);
     }
 }
